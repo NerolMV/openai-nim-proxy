@@ -68,7 +68,7 @@ app.post('/v1/chat/completions', async (req, res) => {
         await axios.post(`${NIM_API_BASE}/chat/completions`, {
           model: model,
           messages: [{ role: 'user', content: 'test' }],
-          max_tokens: 1
+          max_tokens: 0
         }, {
           headers: { 'Authorization': `Bearer ${NIM_API_KEY}`, 'Content-Type': 'application/json' },
           validateStatus: (status) => status < 500
@@ -97,8 +97,8 @@ app.post('/v1/chat/completions', async (req, res) => {
       messages: messages,
       temperature: temperature || 0.6,
       max_tokens: max_tokens || 0,
-      extra_body: ENABLE_THINKING_MODE ? { chat_template_kwargs: { thinking: true } } : undefined,
-      stream: stream || false
+      extra_body: ENABLE_THINKING_MODE ? { chat_template_kwargs: { thinking: false } } : undefined,
+      stream: stream || true
     };
     
     // Make request to NVIDIA NIM API
